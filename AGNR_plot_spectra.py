@@ -81,8 +81,8 @@ ax1.set_ylim([-2.5, 18])
 ax2.set_ylim([-2.5, 18])
 
 # axis labels
-ax1.set_xlabel('Sample bias (mV)')
-ax2.set_xlabel('Sample bias (mV)')
+ax1.set_xlabel('Bias (mV)')
+ax2.set_xlabel('Bias (mV)')
 
 ax1.set_ylabel(r'Conductance (G$_N$)')
 ax2.set_ylabel(r'Conductance (G$_N$)')
@@ -142,18 +142,86 @@ axs[0].set_ylim([-0.5, 8])
 axs[1].set_ylim([-0.5, 8])
 
 # axis labels
-axs[1].set_xlabel('Sample bias (mV)')
+axs[1].set_xlabel('Bias (mV)')
 #axs[1].set_xlabel('Sample bias (mV)')
 
 axs[0].set_ylabel(r'Conductance (G$_N$)')
 axs[1].set_ylabel(r'Conductance (G$_N$)')
 #fig3.tight_layout(pad=0.3) 
 
-fig3.savefig('Spectra_v3.png', 
+fig3.savefig('Spectra_v3_r.png', 
+            dpi=600, # probably not needed for PDF, but I'm writing it anyway
+            transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
+            bbox_inches = 'tight'
+            )
+#%% load plot SS of proxy Au
+
+Data_folder = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-04 - proxyAu10ML_#2/' # folder path in zanet
+Data_folder1 = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-11 - porxyAu10ML_AGNRs_CO_depo/'
+
+plt.rc('axes', labelsize=4.5)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=4.5)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=4.5)    # fontsize of the tick labels
+
+# file names 2nd pair of spectra
+SS = 'S260804_00001.dat' #SS before GNRs OSS
+SS1 = 'S_260813_00088.dat' #SS after GNRs OSS
+SS2 = 'S_260813_00089.dat' #SS after GNRs OSS
+SS3 = 'S_260813_00090.dat' #SS after GNRs OSS
+
+# load data
+spectra_SS = nanonis.biasSpectroscopy()
+spectra_SS.load(str(Data_folder+SS))
+spectra_SS1 = nanonis.biasSpectroscopy()
+spectra_SS1.load(str(Data_folder1+SS1))
+
+# normalize conductance to the baseline
+spectra_SS.normalizeRange([200e-3, 400e-3])
+spectra_SS1.normalizeRange([500e-3, 1000e-3])
+
+
+# plot SS
+fig4,axs = plt.subplots(figsize=(1.8*cm, 1.8*cm))
+
+axs.tick_params(axis='both', which='major', direction='in', length=2, width=0.8)
+axs.tick_params(axis='both', which='minor', direction='in', length=2, width=0.8)
+
+axs.plot(spectra_SS.bias*1e3, spectra_SS.conductance, linewidth = lw, color = 'k')
+
+axs.set_xlim([-430, 400])
+axs.set_ylim([0.75, 1.9])
+axs.set_xticks([-300, 0, 300])
+axs.set_xlabel('Bias (mV)')
+axs.set_ylabel('dI/dV (arb. units)')
+
+
+# plot SS
+fig5,axs = plt.subplots(figsize=(1.8*cm, 1.8*cm))
+
+axs.tick_params(axis='both', which='major', direction='in', length=2, width=0.8)
+axs.tick_params(axis='both', which='minor', direction='in', length=2, width=0.8)
+
+axs.plot(spectra_SS1.bias*1e3, -spectra_SS1.conductance, linewidth = lw, color = 'k')
+
+axs.set_xlim([-800, 800])
+#axs.set_ylim([0.75, 1.9])
+axs.set_xticks([-600, -300, 0, 300, 600])
+axs.set_xlabel('Bias (mV)')
+axs.set_ylabel('dI/dV (arb. units)')
+
+
+
+#%% save SS spectra
+
+fig4.savefig('SS_10ML_proxyAu.png', 
             dpi=600, # probably not needed for PDF, but I'm writing it anyway
             transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
             bbox_inches = 'tight'
             )
 
-
+fig5.savefig('SS_10ML_proxyAu_GNRs.png', 
+            dpi=600, # probably not needed for PDF, but I'm writing it anyway
+            transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
+            bbox_inches = 'tight'
+            )
 
