@@ -32,6 +32,8 @@ lw = 1.2
 
 cm = 1/2.54 # converts inch to cm
 
+
+
 #%% load data and analysis
 #Data_folder = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-11 - porxyAu10ML_AGNRs_CO_depo/' # folder path in zanet
 Data_folder = '/Users/cristinamiergonzalez/Library/CloudStorage/OneDrive2-AsociacionCicNanogune/Projects_articles/ProxyAu_AGNR/key_data/YSR_surface_manipulation/'
@@ -152,6 +154,9 @@ fig, axs = plt.subplots(1, 4, figsize=(18*cm, 3.5*cm))
 page_width, page_height = 24*cm, 3.5*cm
 fig.set_size_inches(page_width, page_height)
 
+for i in range(4):
+    axs[i].tick_params(axis='both', direction='in')
+
 axs[0].plot(spectra_SC.bias*1e3, spectra_SC.conductance, linewidth = 0.8*lw, color = 'grey')
 axs[0].plot(spectra_ed1_0.bias*1e3, spectra_ed1_0.conductance, linewidth = lw, color = 'C3')
 axs[0].plot(spectra_ed2_0.bias*1e3, spectra_ed2_0.conductance, linewidth = lw, color = 'C0')
@@ -180,9 +185,7 @@ axs[3].set_xlabel('Bias (mV)')
 
 #%%
 
-
-
-fig.savefig('spectra_SupFig_v1.pdf', 
+fig.savefig('spectra_SupFig_v2.pdf', 
             dpi=600, # probably not needed for PDF, but I'm writing it anyway
             transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
             bbox_inches = 'tight'
