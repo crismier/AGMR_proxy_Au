@@ -35,6 +35,7 @@ cm = 1/2.54 # converts inch to cm
 
 #%% load data and analysis
 Data_folder = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-11 - porxyAu10ML_AGNRs_CO_depo/' # folder path in zanet
+Data_folder = '/Users/cristinamiergonzalez/Library/CloudStorage/OneDrive2-AsociacionCicNanogune/Projects_articles/ProxyAu_AGNR/key_data/YSR_spectra/' 
 
 # file names 1st pair of spectra
 #Filename_1 = 'S_260812_00160.dat' #surface
@@ -126,6 +127,8 @@ fig3.tight_layout(pad=0.5)
 
 
 fig3,axs = plt.subplots(2,1, figsize=(5.5*cm, 7.5*cm))
+for i in range(2):
+    axs[i].tick_params(axis='both', direction='in', length=2)
 
 axs[1].plot(spectra1.bias*1e3,spectra1.conductance, linewidth = lw, color = 'grey')
 axs[1].plot(spectra2.bias*1e3,spectra2.conductance, linewidth = lw, color = 'C3')
@@ -150,7 +153,7 @@ axs[0].set_ylabel(r'Conductance (G$_N$)')
 axs[1].set_ylabel(r'Conductance (G$_N$)')
 #fig3.tight_layout(pad=0.3) 
 
-fig3.savefig('Spectra_v3_r.png', 
+fig3.savefig('Spectra_v4.png', 
             dpi=600, # probably not needed for PDF, but I'm writing it anyway
             transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
             bbox_inches = 'tight'
@@ -222,7 +225,7 @@ axs.set_ylabel('dI/dV (arb. units)')
 #            bbox_inches = 'tight'
 #            )
 
-fig5.savefig('SS_10ML_proxyAu_GNRs.png', 
+fig5.savefig('SS_10ML_proxyAu_GNRs.pdf', 
             dpi=600, # probably not needed for PDF, but I'm writing it anyway
             transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
             bbox_inches = 'tight'
