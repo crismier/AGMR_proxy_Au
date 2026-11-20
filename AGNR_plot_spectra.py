@@ -12,8 +12,8 @@ from matplotlib import rc
 
 # nanonis imports
 #sys.path.append('C:/Users/jeandino/PythonScripts/GitHub/Nanonis/nanonis')  # path de Jose
-#sys.path.append('C:/Users/cmier/Python_projects/nanonis')  # path de Cris
-sys.path.append('/Users/cristinamiergonzalez/Python_code/nanonis')  # path de Mac Cris
+sys.path.append('C:/Users/cmier/Python_projects/nanonis')  # path de Cris
+#sys.path.append('/Users/cristinamiergonzalez/Python_code/nanonis')  # path de Mac Cris
 import nanonis
 spectra = nanonis.biasSpectroscopy()
 linescan = nanonis.linescan()
@@ -160,9 +160,10 @@ fig3.savefig('Spectra_v4.png',
             )
 #%% load plot SS of proxy Au
 
-Data_folder = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-04 - proxyAu10ML_#2/' # folder path in zanet
-Data_folder1 = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-11 - porxyAu10ML_AGNRs_CO_depo/'
-Data_folder = '/Users/cristinamiergonzalez/Library/CloudStorage/OneDrive2-AsociacionCicNanogune/Projects_articles/ProxyAu_AGNR/key_data/SS/' # path de Mac Cris
+#Data_folder = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-04 - proxyAu10ML_#2/' # folder path in zanet
+#Data_folder1 = 'Z:/STMDATA/Berlino/Nb(110)/2026-06-08 - DBBA on ProxyAu/2026-08-11 - porxyAu10ML_AGNRs_CO_depo/'
+Data_folder = 'C:/Users/cmier/OneDrive - Asociacion Cic Nanogune/Projects_articles/ProxyAu_AGNR/key_data/SS/'
+#Data_folder = '/Users/cristinamiergonzalez/Library/CloudStorage/OneDrive2-AsociacionCicNanogune/Projects_articles/ProxyAu_AGNR/key_data/SS/' # path de Mac Cris
 
 plt.rc('axes', labelsize=4.5)    # fontsize of the x and y labels
 plt.rc('xtick', labelsize=4.5)    # fontsize of the tick labels
@@ -175,17 +176,18 @@ SS2 = 'S_260813_00089.dat' #SS after GNRs OSS
 SS3 = 'S_260813_00090.dat' #SS after GNRs OSS
 
 # load data
-spectra_SS = nanonis.biasSpectroscopy()
-spectra_SS.load(str(Data_folder+SS))
+#spectra_SS = nanonis.biasSpectroscopy()
+#spectra_SS.load(str(Data_folder+SS))
 spectra_SS1 = nanonis.biasSpectroscopy()
 spectra_SS1.load(str(Data_folder+SS1))
 
 # normalize conductance to the baseline
-spectra_SS.normalizeRange([200e-3, 400e-3])
+#spectra_SS.normalizeRange([200e-3, 400e-3])
 spectra_SS1.normalizeRange([500e-3, 1000e-3])
 
 
 # plot SS
+'''
 fig4,axs = plt.subplots(figsize=(2.2*cm, 1.8*cm))
 
 axs.tick_params(axis='both', which='major', direction='in', length=2, width=0.8)
@@ -198,7 +200,7 @@ axs.set_ylim([0.75, 1.9])
 axs.set_xticks([-300, 0, 300])
 axs.set_xlabel('Bias (mV)')
 axs.set_ylabel('dI/dV (arb. units)')
-
+'''
 
 # plot SS
 fig5,axs = plt.subplots(figsize=(2.4*cm, 1.8*cm))
@@ -217,6 +219,29 @@ axs.set_xlabel('Bias (V)')
 axs.set_ylabel('dI/dV (arb. units)')
 
 
+#%% bigger for for Supp Info
+
+fig6,axs = plt.subplots(figsize=(8*cm, 5*cm))
+plt.rc('axes', labelsize=8)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=8)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=8)    # fontsize of the tick labels
+
+
+axs.tick_params(axis='both', which='major', direction='in', length=3, width=0.8)
+axs.tick_params(axis='both', which='minor', direction='in', length=3, width=0.8)
+
+axs.plot(spectra_SS1.bias, -spectra_SS1.conductance, linewidth = lw, color = 'k')
+
+axs.set_xlim([-0.8, 0.8])
+#axs.set_ylim([0.75, 1.9])
+axs.set_xticks([-0.6, -0.3, 0, 0.3, 0.6])
+axs.set_yticks([-1.25, -1, -0.75, -0.5])
+axs.set_yticklabels(['0.5', '0.75', '1', '1.25'])
+axs.set_xlabel('Bias (V)')
+axs.set_ylabel('dI/dV (arb. units)')
+
+
+
 #%% save SS spectra
 
 #fig4.savefig('SS_10ML_proxyAu.png', 
@@ -225,7 +250,14 @@ axs.set_ylabel('dI/dV (arb. units)')
 #            bbox_inches = 'tight'
 #            )
 
-fig5.savefig('SS_10ML_proxyAu_GNRs.pdf', 
+#fig5.savefig('SS_10ML_proxyAu_GNRs.pdf', 
+#            dpi=600, # probably not needed for PDF, but I'm writing it anyway
+#            transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
+#            bbox_inches = 'tight'
+#            )
+
+
+fig6.savefig('SS_10ML_proxyAu_GNRs_big.pdf', 
             dpi=600, # probably not needed for PDF, but I'm writing it anyway
             transparent=True, # you probably want this one. Otherwise you'll have to remove background every time in Illustrator ...
             bbox_inches = 'tight'
